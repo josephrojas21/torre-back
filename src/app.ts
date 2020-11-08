@@ -8,7 +8,8 @@ const app: Application = express();
 app.set('port', 5000 );
 
 // middlewares
-app.use(morgan('dev'))
+app.use(morgan('dev'));
+app.use(express.json());
 
 //routes
 app.use('/api/auth',authRoutes)
