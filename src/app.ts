@@ -13,6 +13,9 @@ app.use(express.json());
 
 //routes
 app.use('/api/auth',authRoutes)
+app.use('/', async (req, res, next) => {
+  res.status(200).json({message: 'Server is online and running'});
+});
 
 
 export default app;
