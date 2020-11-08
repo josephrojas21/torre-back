@@ -5,7 +5,7 @@ import authRoutes from './routes/auth';
 const app: Application = express();
 
 // settings
-app.set('port', 5000 );
+app.set('port', process.env.PORT );
 
 // middlewares
 app.use(morgan('dev'));
