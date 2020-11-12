@@ -14,6 +14,9 @@ exports.signup = async (req, res) => {
         password: req.body.password
     });
     user.password = await user.encryptPassword(user.password);
+    const verifyUser = await user_1.default.findOne({ email: req.body.email });
+    if (verifyUser)
+        return res.status(400).json('Email  is already created');
     const savedUser = await user.save();
     const token = jsonwebtoken_1.default.sign({ _id: savedUser._id }, process.env.SECRET || 'tokenTest');
     res.header('authToken', token).json(savedUser);

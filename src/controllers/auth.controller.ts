@@ -12,6 +12,8 @@ export const signup = async (req: Request, res: Response) => {
     password: req.body.password
   })
   user.password = await user.encryptPassword(user.password);
+  const verifyUser = await User.findOne({email: req.body.email});
+  if (verifyUser) return res.status(400).json('Email  is already created');
   const savedUser = await user.save();
 
   const token: string = jwt.sign({_id: savedUser._id}, process.env.SECRET || 'tokenTest');
