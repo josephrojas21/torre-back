@@ -19,7 +19,7 @@ exports.signup = async (req, res) => {
         return res.status(400).json('Email  is already created');
     const savedUser = await user.save();
     const token = jsonwebtoken_1.default.sign({ _id: savedUser._id }, process.env.SECRET || 'tokenTest');
-    res.header('authToken', token).json(savedUser);
+    res.json({ data: savedUser, tokenT: token });
 };
 exports.signin = async (req, res) => {
     const user = await user_1.default.findOne({ email: req.body.email });
@@ -31,7 +31,7 @@ exports.signin = async (req, res) => {
     const token = jsonwebtoken_1.default.sign({ _id: user._id }, process.env.SECRET || 'tokenTest', {
         expiresIn: 60 * 60
     });
-    res.header('authToken', token).json(user);
+    res.json({ data: user, tokenT: token });
 };
 exports.profile = async (req, res) => {
     const user = await user_1.default.findById(req.userId, { password: 0 });

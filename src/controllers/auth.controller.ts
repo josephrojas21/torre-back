@@ -18,7 +18,7 @@ export const signup = async (req: Request, res: Response) => {
 
   const token: string = jwt.sign({_id: savedUser._id}, process.env.SECRET || 'tokenTest');
 
-  res.header('authToken', token).json(savedUser);
+  res.json({data:savedUser, tokenT: token});
 }
 
 export const signin = async (req: Request, res: Response) => {
@@ -31,7 +31,7 @@ export const signin = async (req: Request, res: Response) => {
     expiresIn: 60 * 60
   });
 
-  res.header('authToken', token).json(user);
+  res.json({data: user, tokenT: token});
   
 }
 
